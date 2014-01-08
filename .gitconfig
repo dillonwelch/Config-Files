@@ -1,0 +1,17 @@
+[user]
+	name = Dillon Welch
+	email = dwelch@wayfair.com
+[pull]
+	rebase = true
+[color "status"]
+	updated = green
+	untracked = yellow
+	changed = yellow
+[color "diff"]
+	old = yellow
+[mergetool]
+	keepBackup = false
+[merge]
+	tool = tortoisemerge
+[push]
+	default = upstream
