@@ -78,6 +78,49 @@ set ffs=unix,dos
 " Functions
 """
 
+" Replace foo(blah, number) with foo(blah, const)
+function! ReplaceFooParam(number, const)
+  " All of the possible characters that can be inside.
+  let word = ['\w', '\d', '\s', '\$', ':', '-', '\[', '\]', '''', '\.', '\/', '"', '>']
+
+  " Search for foo, followed by an optional _list.
+  "TODO: Split this up on lines and comment like crazy.
+  exec '%s/\<\(foo\(_bar\)*' .
+  \ '(\' .
+  \ '(' . join(word, '\|') . '\)*\((\(' . join(word, '\|') . '\|,\)*)\)*\), ' . a:number . '/\1, ' . a:const . '/ce'
+
+endfunction
+
+function! ReplaceBarParam(number, const)
+
+  exec '%s/\(wfrequest(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
+
+endfunction
+
+" A wrapper function to restore the cursor position, window position,
+" and last search after running a command.
+function! Preserve(command)
+  " Save the last search
+  let last_search=@/
+  " Save the current cursor position
+  let save_cursor = getpos(".")
+  " Save the window position
+  normal H
+  let save_window = getpos(".")
+  call setpos('.', save_cursor)
+
+  " Do the business:
+  exec 'call ' . a:command . '()'
+
+  " Restore the last_search
+  let @/=last_search
+  " Restore the window position
+  call setpos('.', save_window)
+  normal zt
+  " Restore the cursor position
+  call setpos('.', save_cursor)
+endfunction
+
 " Converts all newlines to Unix style.
 function! UnixNewlines()
   e ++ff=dos
@@ -105,16 +148,13 @@ function! OnBufRead()
   "call ApplySyntaxSettings()
 endfunction
 
-" Things to do when the file is saved.
-function! OnBufWritePre()
-  " First, let's save the current cursor position since sime functions mess with it.
-  let save_cursor = getpos(".")
+" Things to do when a file is written. Currently for PHP.
+function! ReplaceStuff()
 
-  " Strip all unnecessary whitespace.
-  call StripWhitespace()
+  call ReplaceFooParam(0, 'CONST')
 
-  " Reset the cursor position.
-  call setpos('.', save_cursor)
+  call ReplaceBarParam(0, 'CONST')
+
 endfunction
 
 """
@@ -122,7 +162,7 @@ endfunction
 """
 " Do things when the a file is read in.
 call ApplySyntaxSettings()
-"au BufRead * call OnBufRead()
-"au BufReadPost * call ApplySyntaxSettings()
+
 " Do things when the file is written out.
-au BufWritePre * call OnBufWritePre()
+au BufWritePre * call Preserve("StripWhitespace")
+au BufWritePre *.php call Preserve("ReplaceStuff")

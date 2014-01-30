@@ -6,6 +6,44 @@ DIFFPATH="/d/diffs/"
 # Default directory to load up.
 DEFAULTDIR="/d/"
 
+##### Colors #####
+
+# Normal Colors
+Black='\e[0;30m'        # Black
+Red='\e[0;31m'          # Red
+Green='\e[0;32m'        # Green
+Yellow='\e[0;33m'       # Yellow
+Blue='\e[0;34m'         # Blue
+Purple='\e[0;35m'       # Purple
+Cyan='\e[0;36m'         # Cyan
+White='\e[0;37m'        # White
+
+# Bold
+BBlack='\e[1;30m'       # Black
+BRed='\e[1;31m'         # Red
+BGreen='\e[1;32m'       # Green
+BYellow='\e[1;33m'      # Yellow
+BBlue='\e[1;34m'        # Blue
+BPurple='\e[1;35m'      # Purple
+BCyan='\e[1;36m'        # Cyan
+BWhite='\e[1;37m'       # White
+
+# Background
+On_Black='\e[40m'       # Black
+On_Red='\e[41m'         # Red
+On_Green='\e[42m'       # Green
+On_Yellow='\e[43m'      # Yellow
+On_Blue='\e[44m'        # Blue
+On_Purple='\e[45m'      # Purple
+On_Cyan='\e[46m'        # Cyan
+On_White='\e[47m'       # White
+
+NC="\e[m"               # Color Reset
+
+# Change the color of the prompt (messes up Git prompt)
+#PS1="\e[0;31m[\u@\h \W]\$ \e[m "
+
+
 ##### Git Helpers #####
 
 ### Aliases ###
@@ -37,11 +75,19 @@ alias git_last_commit_diff='git diff HEAD^ HEAD'
 # Prints out the hash of the last commit.
 alias git_last_commit_hash='git log -1 --format="%H"'
 
+# Prints the list of deleted files
+alias git_show_deleted_files='git log --diff-filter=D --summary | grep delete'
+
 # Undo the last commit. The changes from the last commit will be staged for commit.
 alias git_reset_last_commit='git reset --soft HEAD^'
 
 # Unstage everything.
 alias git_unstage='git reset HEAD .'
+
+# All the memes
+alias such=git
+alias very=git
+alias wow='git status'
 
 ### Functions ###
 
@@ -54,21 +100,37 @@ function git_apply_patch()
 # Gets rid of ALL untracked files and uncommitted changes.
 function git_clean()
 {
-  git clean -f
-  git checkout -- .
+  git reset HEAD . # Unstages all changes
+  git clean -f -d # Deletes untracked files and directories.
+  git checkout -- . # Discard all changes to tracked changes
 }
 
 # Creates a new branch.
 function git_create_branch()
 {
-  git checkout -b "${1}"
+  if git_is_on_branch "master"; then
+    git checkout -b "${1}"
+  else
+    git checkout master
+    git pull
+    git checkout -b "${1}"
+  fi
+  git_set_remote master # Will set the upstream branch to master, so we can push and pull.
 }
 
 
 # Creates a diff patch (use for uncommitted changes)
 function git_diff_patch()
 {
-  git diff origin/master --full-index > "$DIFFPATH${1}.patch"
+  git diff origin/master --full-index -M > "$DIFFPATH${1}.patch"
+}
+
+# Tests if the current branch is the same branch as the argument or not.
+function git_is_on_branch()
+{
+  # Will return the result of this test.
+  # True being 0, and false being 1
+  [ $(git_current_branch_name) == "${1}" ]
 }
 
 
@@ -86,9 +148,15 @@ function git_rename_branch()
   git branch -m "${1}"
 }
 
-# Removes a branch.
+# Removes a branch (switches to master if we are on the branch currently).
 function git_remove_branch()
 {
+  # If we are on the branch we are trying to delete, switch to master.
+  if git_is_on_branch "${1}"; then
+    git checkout master
+  fi
+
+  # Delete the branch.
   git branch -D "${1}"
 }
 
@@ -127,7 +195,37 @@ function list_commands()
     printf '%s\n' "${TEMPARR[@]}" | sort
   fi
 }
+# Normal Colors
+Black='\e[0;30m'        # Black
+Red='\e[0;31m'          # Red
+Green='\e[0;32m'        # Green
+Yellow='\e[0;33m'       # Yellow
+Blue='\e[0;34m'         # Blue
+Purple='\e[0;35m'       # Purple
+Cyan='\e[0;36m'         # Cyan
+White='\e[0;37m'        # White
 
+# Bold
+BBlack='\e[1;30m'       # Black
+BRed='\e[1;31m'         # Red
+BGreen='\e[1;32m'       # Green
+BYellow='\e[1;33m'      # Yellow
+BBlue='\e[1;34m'        # Blue
+BPurple='\e[1;35m'      # Purple
+BCyan='\e[1;36m'        # Cyan
+BWhite='\e[1;37m'       # White
+
+# Background
+On_Black='\e[40m'       # Black
+On_Red='\e[41m'         # Red
+On_Green='\e[42m'       # Green
+On_Yellow='\e[43m'      # Yellow
+On_Blue='\e[44m'        # Blue
+On_Purple='\e[45m'      # Purple
+On_Cyan='\e[46m'        # Cyan
+On_White='\e[47m'       # White
+
+NC="\e[m"               # Color Reset
 # Sets up ssh-agent so we don't have to authenticate every time.
 function set_up_ssh_agent()
 {
@@ -143,7 +241,9 @@ function reload()
 }
 
 
-
+function colortest() {
+(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
+}
 
 
 ##### Startup Commands #####
