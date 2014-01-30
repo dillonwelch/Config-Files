@@ -32,7 +32,7 @@ set title
 "Allows backspacing over everything
 set backspace=indent,eol,start
 "Make all swap files in a temp folder with an absolute directroy name (so swap files with the same names don't get overwritten.
-set dir=c://tmp//
+set dir=d://tmp//
 "Don't put cursor at start of the line unnecessarily (test)
 set nostartofline
 "Enhanced tab completion
@@ -80,22 +80,34 @@ set ffs=unix,dos
 " Functions
 """
 
-" Replace foo(blah, number) with foo(blah, const)
-function! ReplaceFooParam(number, const)
+" Replace quote(blah, number) with quote(blah, const)
+function! ReplaceQuoteParam(number, const)
   " All of the possible characters that can be inside.
   let word = ['\w', '\d', '\s', '\$', ':', '-', '\[', '\]', '''', '\.', '\/', '"', '>']
 
-  " Search for foo, followed by an optional _list.
+  " Search for quote, followed by an optional _list.
   "TODO: Split this up on lines and comment like crazy.
-  exec '%s/\<\(foo\(_bar\)*' .
+  exec '%s/\<\(quote\(_list\)*' .
   \ '(\' .
   \ '(' . join(word, '\|') . '\)*\((\(' . join(word, '\|') . '\|,\)*)\)*\), ' . a:number . '/\1, ' . a:const . '/ce'
 
 endfunction
 
-function! ReplaceBarParam(number, const)
+" Replace m_quote(blah, number) with quote(blah, const)
+function! ReplaceMongoQuoteParam(number, const)
+  " All of the possible characters that can be inside.
+  let word = ['\w', '\d', '\s', '\$', ':', '-', '\[', '\]', '''', '\.', '\/', '"', '>']
 
-  exec '%s/\(bar(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
+  " Search for quote, followed by an optional _list.
+  "TODO: Split this up on lines and comment like crazy.
+  exec '%s/\(m_quote\(_list\)*' .
+  \ '(\' .
+  \ '(' . join(word, '\|') . '\)*\((\(' . join(word, '\|') . '\|,\)*)\)*\), ' . a:number . '/\1, ' . a:const . '/ce'
+endfunction
+
+function! ReplaceWfrequestParam(number, const)
+
+  exec '%s/\(wfrequest(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
 
 endfunction
 
@@ -150,12 +162,27 @@ function! OnBufRead()
   "call ApplySyntaxSettings()
 endfunction
 
-" Things to do when a file is written. Currently for PHP.
 function! ReplaceStuff()
 
-  call ReplaceFooParam(0, 'CONST')
+  call ReplaceQuoteParam(0, 'WF_STRING')
+  call ReplaceQuoteParam(1, 'WF_NUMERIC')
+  call ReplaceQuoteParam(2, 'WF_DATE_INSERT')
+  call ReplaceQuoteParam(3, 'WF_DATE_WHERE')
+  call ReplaceQuoteParam(4, 'WF_BOOLEAN')
 
-  call ReplaceBarParam(0, 'CONST')
+  call ReplaceMongoQuoteParam(0, 'MONGO_STRING')
+  call ReplaceMongoQuoteParam(1, 'MONGO_INTEGER')
+  call ReplaceMongoQuoteParam(2, 'MONGO_FLOAT')
+  call ReplaceMongoQuoteParam(3, 'MONGO_DATE')
+  call ReplaceMongoQuoteParam(4, 'MONGO_BOOLEAN')
+  call ReplaceMongoQuoteParam(5, 'MONGO_OBJECT_ID')
+
+  call ReplaceWfrequestParam(0, 'WF_STRING')
+  call ReplaceWfrequestParam(1, 'WF_NUMERIC')
+  call ReplaceWfrequestParam(4, 'WF_BOOLEAN')
+
+  " Removes the version tag.
+  exec '%s/ \* @version   SVN: \$Id\$\n//ce'
 
 endfunction
 
