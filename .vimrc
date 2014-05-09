@@ -93,7 +93,7 @@ endfunction
 
 function! ReplaceBarParam(number, const)
 
-  exec '%s/\(wfrequest(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
+  exec '%s/\(bar(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
 
 endfunction
 
