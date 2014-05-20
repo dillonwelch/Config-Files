@@ -15,3 +15,5 @@
 	tool = tortoisemerge
 [push]
 	default = upstream
+[fetch]
+	prune = true
