@@ -21,6 +21,8 @@ set ignorecase smartcase
 set showcmd
 "Highlight to-do notes
 highlight Todo ctermfg=darkgrey ctermbg=yellow
+"Sets spellcheck on
+set spell spelllang=en_us
 
 """
 " Functionality
