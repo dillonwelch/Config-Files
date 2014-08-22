@@ -115,7 +115,6 @@ function git_create_branch()
     git pull
     git checkout -b "${1}"
   fi
-  git_set_remote master # Will set the upstream branch to master, so we can push and pull.
 }
 
 
