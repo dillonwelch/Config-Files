@@ -80,34 +80,23 @@ set ffs=unix,dos
 " Functions
 """
 
-" Replace quote(blah, number) with quote(blah, const)
-function! ReplaceQuoteParam(number, const)
+" Replace foo(blah, number) with foo(blah, const)
+function! ReplaceFooParam(number, const)
   " All of the possible characters that can be inside.
   let word = ['\w', '\d', '\s', '\$', ':', '-', '\[', '\]', '''', '\.', '\/', '"', '>']
 
-  " Search for quote, followed by an optional _list.
+  " Search for foo, followed by an optional _list.
+  "TODO: make function name a param
   "TODO: Split this up on lines and comment like crazy.
-  exec '%s/\<\(quote\(_list\)*' .
+  exec '%s/\<\(foo\(_list\)*' .
   \ '(\' .
   \ '(' . join(word, '\|') . '\)*\((\(' . join(word, '\|') . '\|,\)*)\)*\), ' . a:number . '/\1, ' . a:const . '/ce'
 
 endfunction
 
-" Replace m_quote(blah, number) with quote(blah, const)
-function! ReplaceMongoQuoteParam(number, const)
-  " All of the possible characters that can be inside.
-  let word = ['\w', '\d', '\s', '\$', ':', '-', '\[', '\]', '''', '\.', '\/', '"', '>']
-
-  " Search for quote, followed by an optional _list.
-  "TODO: Split this up on lines and comment like crazy.
-  exec '%s/\(m_quote\(_list\)*' .
-  \ '(\' .
-  \ '(' . join(word, '\|') . '\)*\((\(' . join(word, '\|') . '\|,\)*)\)*\), ' . a:number . '/\1, ' . a:const . '/ce'
-endfunction
-
-function! ReplaceWfrequestParam(number, const)
-
-  exec '%s/\(wfrequest(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
+function! ReplaceBarParam(number, const)
+  "TODO: make function name a param
+  exec '%s/\(bar(''\(\w\)*''\), ' . a:number . '/\1, ' . a:const . '/ce'
 
 endfunction
 
@@ -162,27 +151,17 @@ function! OnBufRead()
   "call ApplySyntaxSettings()
 endfunction
 
+" Wrapper function for all replace functions that need to be executed on legacy code.
 function! ReplaceStuff()
 
-  call ReplaceQuoteParam(0, 'WF_STRING')
-  call ReplaceQuoteParam(1, 'WF_NUMERIC')
-  call ReplaceQuoteParam(2, 'WF_DATE_INSERT')
-  call ReplaceQuoteParam(3, 'WF_DATE_WHERE')
-  call ReplaceQuoteParam(4, 'WF_BOOLEAN')
+  call ReplaceQuoteParam(0, 'FOO')
+  call ReplaceQuoteParam(1, 'BAR')
 
-  call ReplaceMongoQuoteParam(0, 'MONGO_STRING')
-  call ReplaceMongoQuoteParam(1, 'MONGO_INTEGER')
-  call ReplaceMongoQuoteParam(2, 'MONGO_FLOAT')
-  call ReplaceMongoQuoteParam(3, 'MONGO_DATE')
-  call ReplaceMongoQuoteParam(4, 'MONGO_BOOLEAN')
-  call ReplaceMongoQuoteParam(5, 'MONGO_OBJECT_ID')
-
-  call ReplaceWfrequestParam(0, 'WF_STRING')
-  call ReplaceWfrequestParam(1, 'WF_NUMERIC')
-  call ReplaceWfrequestParam(4, 'WF_BOOLEAN')
+  call ReplaceWfrequestParam(0, 'FOO')
+  call ReplaceWfrequestParam(1, 'BAR')
 
   " Removes the version tag.
-  exec '%s/ \* @version   SVN: \$Id\$\n//ce'
+  exec '%s/TAG\n//ce'
 
 endfunction
 
@@ -194,4 +173,4 @@ call ApplySyntaxSettings()
 
 " Do things when the file is written out.
 au BufWritePre * call Preserve("StripWhitespace")
-au BufWritePre *.php call Preserve("ReplaceStuff")
+"au BufWritePre *.php call Preserve("ReplaceStuff")
