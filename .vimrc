@@ -32,13 +32,13 @@ set title
 "Allows backspacing over everything
 set backspace=indent,eol,start
 "Make all swap files in a temp folder with an absolute directroy name (so swap files with the same names don't get overwritten.
-set dir=d://tmp//
+set dir=/tmp
 "Don't put cursor at start of the line unnecessarily (test)
 set nostartofline
 "Enhanced tab completion
 set wildmenu
 "Set working dir to main dir. Use %:p:h to get file dir.
-cd D:\
+cd /usr/local/
 "Global search/replace by default
 set gdefault
 "Enter newlines without entering insert mode. Moves cursor to new line.

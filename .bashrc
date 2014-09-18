@@ -1,10 +1,10 @@
 ##### Variables #####
 
 # Folder where your diffs are located.
-DIFFPATH="/d/diffs/"
+DIFFPATH=""
 
 # Default directory to load up.
-DEFAULTDIR="/d/documents/code"
+DEFAULTDIR="/usr/local/"
 
 ##### Git Helpers #####
 
