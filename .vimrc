@@ -38,7 +38,7 @@ set nostartofline
 "Enhanced tab completion
 set wildmenu
 "Set working dir to main dir. Use %:p:h to get file dir.
-cd /usr/local/
+cd ~
 "Global search/replace by default
 set gdefault
 "Enter newlines without entering insert mode. Moves cursor to new line.

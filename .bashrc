@@ -4,7 +4,7 @@
 DIFFPATH=""
 
 # Default directory to load up.
-DEFAULTDIR="/usr/local/"
+DEFAULTDIR="/Users/daw0328/"
 
 ##### Git Helpers #####
 
@@ -134,6 +134,11 @@ alias dphp="cd /d/php"
 
 # Switches to resources dir.
 alias dres="cd /d/resources"
+
+# Switches to the Dropbox code directory on Mac.
+alias macdbc="cd /Users/daw0328/Dropbox/Documents/Documents/Code"
+
+alias qcode="cd ~/Code/Work/currica/"
 
 # Creates a symbolic link to a file
 # symlink /path/to/original/file /path/to/symlink

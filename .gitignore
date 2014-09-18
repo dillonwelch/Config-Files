@@ -1,5 +1,6 @@
 .bash_history
 .gem
 .ssh
+.DS_Store
 _viminfo
 vimfiles/
