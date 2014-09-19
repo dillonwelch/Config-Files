@@ -48,6 +48,10 @@ nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 """ Opens a file in the current directory.
 cabbr <expr> %% expand('%:p:h')
+"Allows copying to the clipboard for Macs.
+map <F2> :.w !pbcopy<CR><CR>
+"Allows pasting from clipboard for Macs.
+map <F3> :r !pbpaste<CR>
 
 """
 " Indentation
