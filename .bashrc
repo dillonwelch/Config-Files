@@ -4,7 +4,7 @@
 DIFFPATH=""
 
 # Default directory to load up.
-DEFAULTDIR="/Users/daw0328/"
+DEFAULTDIR="/Users/"
 
 ##### Git Helpers #####
 
@@ -188,7 +188,7 @@ function colortest() {
 
 ##### Startup Commands #####
 
-# Changes directory to php repo on startup (DOES NOT change home directory).
+# Changes directory on startup (DOES NOT change home directory).
 cd $DEFAULTDIR
 
 # Log into ssh once to avoid doing it every time.
