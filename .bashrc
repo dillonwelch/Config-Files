@@ -25,6 +25,9 @@ alias git_current_branch_name='git symbolic-ref HEAD --short'
 # Removes a branch. Calls git_remove_branch
 alias git_delete_branch='git_remove_branch'
 
+# Removes a file from source control.'
+alias git_remove_file='git rm --cached'
+
 # Removes all .rej files.
 alias git_remove_rej='find . -name "*.rej" -exec rm -f {} \;'
 
