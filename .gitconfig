@@ -12,7 +12,7 @@
 [mergetool]
 	keepBackup = false
 [merge]
-	tool = tortoisemerge
+	tool = vimdiff
 [push]
 	default = upstream
 [fetch]
