@@ -4,7 +4,7 @@
 DIFFPATH=""
 
 # Default directory to load up.
-DEFAULTDIR="~"
+DEFAULTDIR=~
 
 ##### Git Helpers #####
 
