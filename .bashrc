@@ -4,7 +4,7 @@
 DIFFPATH=""
 
 # Default directory to load up.
-DEFAULTDIR="/Users/"
+DEFAULTDIR="~"
 
 ##### Git Helpers #####
 
@@ -139,7 +139,7 @@ alias dphp="cd /d/php"
 alias dres="cd /d/resources"
 
 # Switches to the Dropbox code directory on Mac.
-alias macdbc="cd /Users/daw0328/Dropbox/Documents/Documents/Code"
+alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
 alias qcode="cd ~/Code/Work/currica/"
 
