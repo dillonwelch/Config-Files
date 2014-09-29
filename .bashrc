@@ -147,6 +147,9 @@ alias qcode="cd ~/Code/Work/currica/"
 # symlink /path/to/original/file /path/to/symlink
 alias symlink="ln -s"
 
+# SSH's into Nick's computer.
+alias nssh="ssh nick@172.16.1.6"
+
 ##### Functions #####
 
 # List out all custom aliases and functions.
@@ -200,3 +203,7 @@ set_up_ssh_agent
 # If this is the first time loading the shell, go to default directory.
 # Otherwise, go to the directory we were working in before reload
 if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin

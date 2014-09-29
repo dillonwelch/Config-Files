@@ -22,4 +22,4 @@
 [core]
 	editor = /usr/bin/vim
 [init]
-	templatedir = ~/Code/Work/currica/dotfiles/.git-templates
+	templatedir = ~/Code/Work/currica/dotfiles/git/templates

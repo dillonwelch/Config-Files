@@ -10,15 +10,29 @@
 # Use this one if you just want a count of errors.
 #FAIL_COUNT=`rspec --format=progress | grep "example" | grep "fail" | awk {'print $3'}`
 
-# Executes rspec, if there are no errors the string will be null
-FAIL_COUNT=`rspec | sed -n '/Failures:/,/Finished in/p'`
+echo "\n----------------Running RSpec tests----------------\n"
 
-if [ -n "$FAIL_COUNT" ]
+# Execute RSpec and save both stdout and stderr.
+RSPEC_RESULTS=`rspec 2>&1`
+RSPEC_EXIT_CODE=$?
+
+# If we got a non-zero error code, at least one test failed.
+if [ $RSPEC_EXIT_CODE -ne 0 ]
 then
-  echo "There are tests broken. Please fix them and commit again."
-  echo "$FAIL_COUNT"
+  # First, check the output for test failure messages.
+  FAIL_COUNT=`sed -n '/Failures:/,/Finished in/p' <<< "$RSPEC_RESULTS"`
+  if [ -n "$FAIL_COUNT" ]
+  then
+    # If there were messages, this means that one or more test assertions were not met.
+    echo "There are tests broken. Please fix them and commit again.\n"
+    echo "$FAIL_COUNT"
+  else
+   # If there were no messages, this means that some runtime error was encountered.
+    echo "There is a syntax or some other runtime error in your tests preventing RSpec from completing. Here is the error output:\n"
+    echo "$RSPEC_RESULTS"
+  fi
   exit 1
 else
-  echo "All rspec tests are passing."
+  echo "All rspec tests are passing.\n"
   exit 0
 fi
