@@ -9,9 +9,18 @@ Plugin 'gmarik/vundle'
 Plugin 'kchmck/vim-coffee-script'
 
 """" Ruby plugins
+" Adds Rails navigation, generator, and other commands.
 Plugin 'tpope/vim-rails'
 
-call vundle#end()
-filetype plugin indent on
+" Adds Ruby navigation and syntax highlighting
+Plugin 'vim-ruby/vim-ruby'
 
-syntax enable
+"""" End Ruby plugins
+
+" Adds directory navigation.
+Plugin 'scrooloose/nerdtree'
+
+" Git wrapper for Vim.
+Plugin 'tpope/vim-fugitive'
+
+call vundle#end()

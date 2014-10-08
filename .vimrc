@@ -3,14 +3,25 @@
 """"""
 " Required for Vundle.
 set nocompatible
-filetype off
 " Separate file for Vundle packages
 source $HOME/.vim/vundle.vim
+
+" Enable filetype detection and filetype specific settings.
+filetype on
+filetype indent on
+filetype plugin on
 
 """""
 " Plugin Aliases
 """"
 command! CoffeeLinter CoffeeLint | cwindow
+
+"""""
+" Aliases
+"""""
+cabbr <expr> MyVundle expand('~/.vim/vundle.vim')
+command! EVundle e ~/.vim/vundle.vim
+command! EVimRC e $MYVIMRC
 
 """"""
 " Display
