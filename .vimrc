@@ -1,4 +1,18 @@
 """"""
+" Vundle
+""""""
+" Required for Vundle.
+set nocompatible
+filetype off
+" Separate file for Vundle packages
+source $HOME/.vim/vundle.vim
+
+"""""
+" Plugin Aliases
+""""
+command! CoffeeLinter CoffeeLint | cwindow
+
+""""""
 " Display
 """"""
 " Shows line numbers
@@ -177,4 +191,5 @@ call ApplySyntaxSettings()
 
 " Do things when the file is written out.
 au BufWritePre * call Preserve("StripWhitespace")
-"au BufWritePre *.php call Preserve("ReplaceStuff")
+
+autocmd! bufwritepost .vimrc source %
