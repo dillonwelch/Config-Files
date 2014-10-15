@@ -204,6 +204,9 @@ set_up_ssh_agent
 # Otherwise, go to the directory we were working in before reload
 if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
 
+# Adds Git Auto-Complete.
+source ~/git-completion.bash
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
