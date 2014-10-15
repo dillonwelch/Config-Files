@@ -16,6 +16,18 @@ filetype plugin on
 """"
 command! CoffeeLinter CoffeeLint | cwindow
 
+" Rename current file (courtesy of Gary Bernhardt)
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <Leader>n :call RenameFile()<cr>
+
 """""
 " Aliases
 """""
@@ -203,4 +215,7 @@ call ApplySyntaxSettings()
 " Do things when the file is written out.
 au BufWritePre * call Preserve("StripWhitespace")
 
+" Automatically sources .vimrc after saving it.
 autocmd! bufwritepost .vimrc source %
+" Automatically source .vimrc and runs BundleUpdate when saving vundle.vim.
+autocmd! bufwritepost vundle.vim source .vimrc | BundleInstall
