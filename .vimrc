@@ -28,12 +28,18 @@ function! RenameFile()
 endfunction
 map <Leader>n :call RenameFile()<cr>
 
+set wildignore+=*.o,tmp
+let g:CommandTMaxHeight = 15
+
 """""
 " Aliases
 """""
 cabbr <expr> MyVundle expand('~/.vim/vundle.vim')
 command! EVundle e ~/.vim/vundle.vim
 command! EVimRC e $MYVIMRC
+
+" Clears highlighting of search results.
+nnoremap <F4> :noh<return><esc>
 
 """"""
 " Display
@@ -214,6 +220,9 @@ call ApplySyntaxSettings()
 
 " Do things when the file is written out.
 au BufWritePre * call Preserve("StripWhitespace")
+
+" Read axlsx view files as ruby files.
+au BufReadPost *.axlsx set syntax=ruby
 
 " Automatically sources .vimrc after saving it.
 autocmd! bufwritepost .vimrc source %

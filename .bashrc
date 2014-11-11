@@ -1,11 +1,11 @@
 ##### Variables #####
 
 # Folder where your diffs are located.
-DIFFPATH=""
+DIFFPATH="/tmp/"
 
 # Default directory to load up.
-DEFAULTDIR=~
-
+# DEFAULTDIR=~
+DEFAULTDIR=~/Code/Work/currica/web
 ##### Git Helpers #####
 
 ### Aliases ###
@@ -124,6 +124,12 @@ function git_remove_branch()
   git branch -D "${1}"
 }
 
+# Searches all remote branches for the search string.
+function git_search
+{
+  git grep "${1}" $(git ls-remote . 'refs/remotes/*' | cut -f 2)
+}
+
 # Sets the remote upstream branch for the current branch.
 function git_set_remote()
 {
@@ -186,19 +192,13 @@ function reload()
   source ${HOME}/.bashrc
 }
 
-
-function colortest() {
-(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
-}
-
-
 ##### Startup Commands #####
 
 # Changes directory on startup (DOES NOT change home directory).
 cd $DEFAULTDIR
 
 # Log into ssh once to avoid doing it every time.
-set_up_ssh_agent
+#set_up_ssh_agent
 
 # If this is the first time loading the shell, go to default directory.
 # Otherwise, go to the directory we were working in before reload

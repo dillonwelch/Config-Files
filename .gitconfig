@@ -20,6 +20,6 @@
 [help]
 	autocorrect = 1
 [core]
-	editor = /usr/bin/vim
+	editor = /usr/local/bin/vim
 [init]
 	templatedir = ~/Code/Work/currica/dotfiles/git/templates
