@@ -220,26 +220,27 @@ function install_nokogiri()
   gem install nokogiri
 )
 
-
-function setup_dev_database()
-(
-  rake db:drop
-  rake db:create
-  pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
-  rake db:migrate
-  #rails c
-  #@user = User.find_by_email('rreas@q-centrix.com')
-  #@user.password = blah
-  #@user.password_confirmation = blah
-  #@user.save
-)
-
 # Installs the YCM vim plugin
 function install_ycm()
 (
   #brew install cmake
   cd ~/.vim/bundle/YouCompleteMe/third_party/ycmd
   ./build.sh --clang-compiler
+)
+
+##### Ruby/Rails Aliases #####
+
+# Clears the rails cache.
+alias rails_clear_cache="rails runner \"Rails.cache.clear\""
+
+# Re-creates the database for dev with the production data dump.
+function setup_dev_database()
+(
+  rake db:drop
+  rake db:create
+  pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
+  rake db:migrate
+  rails runner "@user = User.find_by_email('rreas@q-centrix.com'); @user.password = 'cuRR1ca!'; @user.password_confirmation = 'curr1ca!'; @user.save;"
 )
 
 ##### Startup Commands #####
