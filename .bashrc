@@ -4,8 +4,8 @@
 DIFFPATH="/tmp/"
 
 # Default directory to load up.
-# DEFAULTDIR=~
-DEFAULTDIR=~/Code/Work/currica/web
+ DEFAULTDIR=~
+#DEFAULTDIR=~/Code/Work/currica/web
 ##### Git Helpers #####
 
 ### Aliases ###
@@ -149,12 +149,18 @@ alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
 alias qcode="cd ~/Code/Work/currica/"
 
+alias install_vundle="git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
+
+alias update_vim_plugins="vim +PluginInstall +qall"
+
 # Creates a symbolic link to a file
 # symlink /path/to/original/file /path/to/symlink
 alias symlink="ln -s"
 
 # SSH's into Nick's computer.
 alias nssh="ssh nick@172.16.1.6"
+
+alias v="/Applications/MacVim.app/Contents/MacOS/Vim"
 
 ##### Functions #####
 
@@ -191,6 +197,50 @@ function reload()
   export LAST_DIR=$(pwd) # Save the current working directory so we can switch back to it after reload.
   source ${HOME}/.bashrc
 }
+
+function setup_vim()
+(
+  mkdir ~/.vim/bundle
+  install_vundle
+  install_ycm
+  install_command_t
+)
+
+function install_command_t()
+(
+  cd ~/.vim/bundle/command-t/ruby/command-t
+  ruby extconf.rb
+  make
+)
+
+function install_nokogiri()
+(
+  gem uninstall nokogiri
+  xcode-select --install
+  gem install nokogiri
+)
+
+
+function setup_dev_database()
+(
+  rake db:drop
+  rake db:create
+  pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
+  rake db:migrate
+  #rails c
+  #@user = User.find_by_email('rreas@q-centrix.com')
+  #@user.password = blah
+  #@user.password_confirmation = blah
+  #@user.save
+)
+
+# Installs the YCM vim plugin
+function install_ycm()
+(
+  #brew install cmake
+  cd ~/.vim/bundle/YouCompleteMe/third_party/ycmd
+  ./build.sh --clang-compiler
+)
 
 ##### Startup Commands #####
 
