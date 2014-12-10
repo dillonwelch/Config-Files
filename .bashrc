@@ -236,10 +236,20 @@ alias rails_clear_cache="rails runner \"Rails.cache.clear\""
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
 (
-  rake db:drop
+  echo 'Dropping the database...'
+  db=`rake db:drop 2&>1`
+  run=`sed -n '/ERROR/p' <<< "$db"`
+  if [ -n "$run" ]
+  then
+    echo 'hmm....'
+    exit 1
+  else
+    echo 'Next steps...'
+  fi
   rake db:create
   pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
   rake db:migrate
+  rake db:migrate RAILS_ENV=test
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "cuRR1ca!"; @user.password_confirmation = "cuRR1ca!"; @user.save!;'
 )
 
