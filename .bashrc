@@ -4,8 +4,8 @@
 DIFFPATH="/tmp/"
 
 # Default directory to load up.
- DEFAULTDIR=~
-#DEFAULTDIR=~/Code/Work/currica/web
+DEFAULTDIR=~/Code/Work/currica
+
 ##### Git Helpers #####
 
 ### Aliases ###
@@ -144,6 +144,7 @@ function setup_dev_database()
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "cuRR1ca!"; @user.password_confirmation = "cuRR1ca!"; @user.save!;'
 )
 
+# Re-creates the database for dev without using the production data dump
 function setup_db_structure()
 (
   echo 'Dropping the database...'
@@ -158,15 +159,13 @@ function setup_db_structure()
   fi
   rake db:create
   rake db:migrate
+  rake db:migrate RAILS_ENV=test
 )
 
 ##### Startup Commands #####
 
 # Changes directory on startup (DOES NOT change home directory).
 cd $DEFAULTDIR
-
-# Log into ssh once to avoid doing it every time.
-#set_up_ssh_agent
 
 # If this is the first time loading the shell, go to default directory.
 # Otherwise, go to the directory we were working in before reload
