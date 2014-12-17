@@ -35,6 +35,7 @@ let g:CommandTMaxHeight = 15
 " Aliases
 """""
 cabbr <expr> MyVundle expand('~/.vim/vundle.vim')
+command! EBashRC e ~/.bashrc
 command! EVundle e ~/.vim/vundle.vim
 command! EVimRC e $MYVIMRC
 
@@ -223,6 +224,9 @@ au BufWritePre * call Preserve("StripWhitespace")
 
 " Read axlsx view files as ruby files.
 au BufReadPost *.axlsx set syntax=ruby
+
+" Turn off spell check for gitconfig.
+autocmd FileType gitconfig setlocal nospell
 
 " Automatically sources .vimrc after saving it.
 autocmd! bufwritepost .vimrc source %

@@ -10,140 +10,30 @@ DIFFPATH="/tmp/"
 
 ### Aliases ###
 
-# Amends all staged changes to last commit.
-alias git_amend_commit='git commit -a --amend --no-edit'
-
-# Prints out a list of all the changed files from the last commit.
-alias git_changed_files='git diff-tree --no-commit-id --name-only -r $(git log -1 --format="%H")'
-
-# Prints out a count of the amount of changed files.
-alias git_changed_files_count='git_changed_files | wc -l'
-
-# Prints the short text of the current branch name.
-alias git_current_branch_name='git symbolic-ref HEAD --short'
-
-# Removes a branch. Calls git_remove_branch
-alias git_delete_branch='git_remove_branch'
-
-# Removes a file from source control.'
-alias git_remove_file='git rm --cached'
-
-# Removes all .rej files.
-alias git_remove_rej='find . -name "*.rej" -exec rm -f {} \;'
-
-# Prints out the last commit.
-alias git_last_commit='git log -1'
-
-# Shows a diff between the last two commits.
-alias git_last_commit_diff='git diff HEAD^ HEAD'
-
-# Prints out the hash of the last commit.
-alias git_last_commit_hash='git log -1 --format="%H"'
-
-# Prints the list of deleted files
-alias git_show_deleted_files='git log --diff-filter=D --summary | grep delete'
-
-# Undo the last commit. The changes from the last commit will be staged for commit.
-alias git_reset_last_commit='git reset --soft HEAD^'
-
-# Unstage everything.
-alias git_unstage='git reset HEAD .'
-
-# All the memes
-alias such=git
-alias very=git
-alias wow='git status'
-
 ### Functions ###
 
-# Applies a diff patch
-function git_apply_patch()
-{
-  git apply --ignore-space-change --ignore-whitespace --reject --whitespace=fix "$DIFFPATH${1}.patch"
-}
-
-# Gets rid of ALL untracked files and uncommitted changes.
-function git_clean()
-{
-  git reset HEAD . # Unstages all changes
-  git clean -f -d # Deletes untracked files and directories.
-  git checkout -- . # Discard all changes to tracked changes
-}
-
-# Creates a new branch.
-function git_create_branch()
-{
-  if git_is_on_branch "master"; then
-    git checkout -b "${1}"
-  else
-    git checkout master
-    git pull
-    git checkout -b "${1}"
-  fi
-}
-
+# # Applies a diff patch
+# function git_apply_patch()
+# {
+#   git apply --ignore-space-change --ignore-whitespace --reject --whitespace=fix "$DIFFPATH${1}.patch"
+# }
 
 # Creates a diff patch (use for uncommitted changes)
-function git_diff_patch()
-{
-  git diff origin/master --full-index -M > "$DIFFPATH${1}.patch"
-}
-
-# Tests if the current branch is the same branch as the argument or not.
-function git_is_on_branch()
-{
-  # Will return the result of this test.
-  # True being 0, and false being 1
-  [ $(git_current_branch_name) == "${1}" ]
-}
-
+# function git_diff_patch()
+# {
+#   git diff origin/master --full-index -M > "$DIFFPATH${1}.patch"
+# }
 
 # Sends all COMMITTED changes from origin/master to the file name specified in the argument
 # For example, git_patch testing would create a file called testing.patch in /d/diffs
 # If necessary, make a temporary commit and then reset by doing git reset HEAD^
-function git_patch()
-{
-  git format-patch origin/master --stdout --full-index > "$DIFFPATH${1}.patch"
-}
+# function git_patch()
+# {
+#   git format-patch origin/master --stdout --full-index > "$DIFFPATH${1}.patch"
+# }
 
-# Renames the current branch.
-function git_rename_branch()
-{
-  git branch -m "${1}"
-}
-
-# Removes a branch (switches to master if we are on the branch currently).
-function git_remove_branch()
-{
-  # If we are on the branch we are trying to delete, switch to master.
-  if git_is_on_branch "${1}"; then
-    git checkout master
-  fi
-
-  # Delete the branch.
-  git branch -D "${1}"
-}
-
-# Searches all remote branches for the search string.
-function git_search
-{
-  git grep "${1}" $(git ls-remote . 'refs/remotes/*' | cut -f 2)
-}
-
-# Sets the remote upstream branch for the current branch.
-function git_set_remote()
-{
-  git branch --set-upstream-to="origin/${1}"
-}
 
 ##### Aliases #####
-
-# Switches to php dir.
-alias dphp="cd /d/php"
-
-# Switches to resources dir.
-alias dres="cd /d/resources"
-
 # Switches to the Dropbox code directory on Mac.
 alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
@@ -157,10 +47,11 @@ alias update_vim_plugins="vim +PluginInstall +qall"
 # symlink /path/to/original/file /path/to/symlink
 alias symlink="ln -s"
 
-# SSH's into Nick's computer.
-alias nssh="ssh nick@172.16.1.6"
-
 alias v="/Applications/MacVim.app/Contents/MacOS/Vim"
+
+# Removes all .rej files.
+alias remove_rej='find . -name "*.rej" -exec rm -f {} \;'
+
 
 ##### Functions #####
 
@@ -251,6 +142,22 @@ function setup_dev_database()
   rake db:migrate
   rake db:migrate RAILS_ENV=test
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "cuRR1ca!"; @user.password_confirmation = "cuRR1ca!"; @user.save!;'
+)
+
+function setup_db_structure()
+(
+  echo 'Dropping the database...'
+  db=`rake db:drop 2&>1`
+  run=`sed -n '/ERROR/p' <<< "$db"`
+  if [ -n "$run" ]
+  then
+    echo 'hmm....'
+    exit 1
+  else
+    echo 'Next steps...'
+  fi
+  rake db:create
+  rake db:migrate
 )
 
 ##### Startup Commands #####

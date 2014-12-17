@@ -21,5 +21,64 @@
 	autocorrect = 1
 [core]
 	editor = /usr/local/bin/vim
-[init]
-	templatedir = ~/Code/Work/currica/dotfiles/git/templates
+[alias]
+  # Amends all staged changes to last commit.
+  ac = commit -a --amend --no-edit
+
+  # Alias for checkout
+  co = checkout
+
+  # Prints the short text of the current branch name.
+  currentbranch = symbolic-ref HEAD --short
+
+  ; cb = !sh -c "'if [ $(git currentbranch) == 'master' ]; then git pull && git checkout -b ${0}; else echo 0; fi'"
+
+  # Createas a new branch from the current branch (after updating it).
+  cb = !sh -c 'git pull && git checkout -b ${0}'
+
+  # Creates a new branch from master.
+  cbm = !sh -c 'git checkout master && git cb ${0}'
+
+  cf = !sh -c 'git diff-tree --no-commit-id --name-only -r $(git log -1 --format="%H")'
+
+  # Deletes a branch, switching to master first if it is the current branch.
+  db = !sh -c "'if [ $(git currentbranch) == ${0} ]; then git co master; fi && git branch -D ${0}'"
+
+  # Deletes the current branch.
+  dbc = !sh -c 'git db $(git currentbranch)'
+
+  # Prints a list of deleted files in the repo
+  dfiles = !git log --diff-filter=D --summary | grep delete
+
+  # Prints the last commit
+  lc = log -1
+
+  # Diff of the last commit
+  lcdiff = diff HEAD~1
+
+  # Hash of the last commit
+  lchash = log -1 --format="%H"
+
+  # Undo the last commit, leaving the changes staged.
+  lcreset = reset --soft HEAD^
+
+  # Removes all untracked files and uncommitted changes
+  # Unstages all changes
+  # Deletes untracked files and directories
+  # Discards all changes to tracked files
+  nuke = !sh -c 'git reset HEAD . && git clean -f -d  && git checkout -- .'
+
+  # Pushes a branch to origin and sets the upstream.
+  po = !sh -c 'git push -u origin $(git currentbranch)'
+
+  # Renames the current branch
+  rb = !sh -c 'git branch -m "${0}"'
+
+  # Resets the branch to the remote version of the passed in branch name.
+  rh = !sh -c 'git reset --hard origin/${0}'
+
+  # Sets the remote upstream branch to the current branch.
+  sr = !sh -c 'git branch --set-upstream-to="origin/${0}"'
+
+  # Searches remote branches for a string.
+  search = !sh -c 'git grep "${0}" $(git ls-remote . 'refs/remotes/*' | cut -f 2)'
