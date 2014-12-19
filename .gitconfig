@@ -25,30 +25,30 @@
   # Amends all staged changes to last commit.
   ac = commit -a --amend --no-edit
 
-  # Alias for branch
+  # Alias for branch.
   b = branch
 
-  # Alias for checkout
+  # Alias for checkout.
   co = checkout
 
   # Prints the short text of the current branch name.
   currentbranch = symbolic-ref HEAD --short
 
-  ; cb = !sh -c "'if [ $(git currentbranch) == 'master' ]; then git pull && git checkout -b ${0}; else echo 0; fi'"
-
   # Createas a new branch from the current branch (after updating it).
-  cb = !sh -c 'git pull && git checkout -b ${0}'
+  cb = !git pull && git cbb $@
+  cbb = !sh -c 'git checkout -b ${1}'
 
   # Creates a new branch from master.
-  cbm = !sh -c 'git checkout master && git cb ${0}'
+  cbm = !git checkout master && git cb ${1}
 
+  # Lists changed files from the last commit.
   cf = !sh -c 'git diff-tree --no-commit-id --name-only -r $(git log -1 --format="%H")'
 
   # Deletes a branch, switching to master first (can't get conditional switching to work).
   db = !sh -c 'git checkout master && git branch -d ${1}' > /dev/null 2>&1
 
   # Deletes the current branch.
-  dbc = !sh -c 'git db $(git currentbranch)'
+  dbc = !git db $(git currentbranch)
 
   # Prints a list of deleted files in the repo
   dfiles = !git log --diff-filter=D --summary | grep delete
@@ -69,7 +69,7 @@
   # Unstages all changes
   # Deletes untracked files and directories
   # Discards all changes to tracked files
-  nuke = !sh -c 'git reset HEAD . && git clean -f -d  && git checkout -- .'
+  nuke = !git reset HEAD . && git clean -f -d  && git checkout -- .
 
   # Pushes a branch to origin and sets the upstream.
   po = !sh -c 'git push -u origin $(git currentbranch)'
