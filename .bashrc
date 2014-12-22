@@ -52,6 +52,10 @@ alias v="/Applications/MacVim.app/Contents/MacOS/Vim"
 # Removes all .rej files.
 alias remove_rej='find . -name "*.rej" -exec rm -f {} \;'
 
+# Finds and replaces with multiple newline removal.
+# NEed to add single quotes back around rails_helper.
+alias dothething='for f in $(find spec/**/*.rb ); do perl -00pi -e "s/require rails_helper\n\n//gm" $f; done'
+
 
 ##### Functions #####
 
