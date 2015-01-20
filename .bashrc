@@ -128,6 +128,8 @@ function install_ycm()
 # Clears the rails cache.
 alias rails_clear_cache="rails runner \"Rails.cache.clear\""
 
+alias rails_server_process="lsof -wni tcp:3000"
+
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
 (
@@ -146,6 +148,7 @@ function setup_dev_database()
   rake db:migrate
   rake db:migrate RAILS_ENV=test
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "cuRR1ca!"; @user.password_confirmation = "cuRR1ca!"; @user.save!;'
+  rm 1
 )
 
 # Re-creates the database for dev without using the production data dump
@@ -164,6 +167,7 @@ function setup_db_structure()
   rake db:create
   rake db:migrate
   rake db:migrate RAILS_ENV=test
+  rm 1
 )
 
 ##### Startup Commands #####
