@@ -80,6 +80,9 @@
   # Resets the branch to the remote version of the passed in branch name.
   rh = !sh -c 'git reset --hard origin/${0}'
 
+  # Alias for status.
+  s = status
+
   # Sets the remote upstream branch to the current branch.
   sr = !sh -c 'git branch --set-upstream-to="origin/${0}"'
 

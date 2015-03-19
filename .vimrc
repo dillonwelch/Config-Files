@@ -67,6 +67,8 @@ set showcmd
 highlight Todo ctermfg=darkgrey ctermbg=yellow
 "Sets spellcheck on
 set spell spelllang=en_us
+"Displays a column at 80 characters
+set colorcolumn=80
 
 """
 " Functionality

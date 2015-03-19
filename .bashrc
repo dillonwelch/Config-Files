@@ -147,7 +147,7 @@ function setup_dev_database()
   pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
   rake db:migrate
   rake db:migrate RAILS_ENV=test
-  rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "cuRR1ca!"; @user.password_confirmation = "cuRR1ca!"; @user.save!;'
+  rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
   rm 1
 )
 
@@ -167,6 +167,7 @@ function setup_db_structure()
   rake db:create
   rake db:migrate
   rake db:migrate RAILS_ENV=test
+  rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
   rm 1
 )
 
@@ -185,3 +186,5 @@ source ~/git-completion.bash
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
