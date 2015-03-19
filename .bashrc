@@ -167,7 +167,7 @@ function setup_db_structure()
   rake db:create
   rake db:migrate
   rake db:migrate RAILS_ENV=test
-  rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
+  rake db:seed
   rm 1
 )
 
