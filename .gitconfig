@@ -45,7 +45,7 @@
   cf = !sh -c 'git diff-tree --no-commit-id --name-only -r $(git log -1 --format="%H")'
 
   # Deletes a branch, switching to master first (can't get conditional switching to work).
-  db = !sh -c 'git checkout master && git branch -D ${0}' > /dev/null 2>&1
+  db = !sh -c 'git checkout master && git branch -D ${0}'
 
   # Deletes the current branch.
   dbc = !git db $(git currentbranch)

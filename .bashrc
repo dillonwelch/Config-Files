@@ -130,6 +130,8 @@ alias rails_clear_cache="rails runner \"Rails.cache.clear\""
 
 alias rails_server_process="lsof -wni tcp:3000"
 
+alias stylecheck="rubocop -c ~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
 (

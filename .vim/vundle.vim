@@ -18,16 +18,22 @@ Plugin 'tpope/vim-bundler'
 " Add CoffeeScript support
 Plugin 'kchmck/vim-coffee-script'
 
+" Runs Rubocop in Vim
+Plugin 'ngmy/vim-rubocop'
+
 """" End Ruby plugins
 
 " Autocompletes endings for control structures in Ruby, C, and other languages.
 Plugin 'tpope/vim-endwise'
 
 " Code Completion engine for many languages
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete'
+" Plugin 'osyo-manga/vim-monster'
 
 " Autocomplete filenames with fuzzy file search
-Plugin 'wincent/Command-T'
+" Plugin 'wincent/Command-T'
+Plugin 'kien/ctrlp.vim'
 
 " :Nyancat for an awesome surprise!
 Plugin 'koron/nyancat-vim'

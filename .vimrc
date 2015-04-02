@@ -5,11 +5,15 @@
 set nocompatible
 " Separate file for Vundle packages
 source $HOME/.vim/vundle.vim
+source $HOME/.vim/neocomplete_settings.vim
 
 " Enable filetype detection and filetype specific settings.
 filetype on
 filetype indent on
 filetype plugin on
+
+" Set Rubocop file
+let g:vimrubocop_config = '~/Code/Work/currica/hound/config/style_guides/ruby.yml'
 
 """""
 " Plugin Aliases
@@ -29,7 +33,6 @@ endfunction
 map <Leader>n :call RenameFile()<cr>
 
 set wildignore+=*.o,tmp
-let g:CommandTMaxHeight = 15
 
 """""
 " Aliases
