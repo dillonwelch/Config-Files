@@ -15,6 +15,8 @@ filetype plugin on
 " Set Rubocop file
 let g:vimrubocop_config = '~/Code/Work/currica/hound/config/style_guides/ruby.yml'
 
+let g:ctrlp_show_hidden = 1
+
 """""
 " Plugin Aliases
 """"

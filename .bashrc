@@ -125,12 +125,17 @@ function install_ycm()
 
 ##### Ruby/Rails Aliases #####
 
+# Pulls the Heroku db to local (requires name of local DB
+alias get_heroku_db="rake db:drop; heroku pg:pull DATABASE_URL"
+
 # Clears the rails cache.
 alias rails_clear_cache="rails runner \"Rails.cache.clear\""
 
 alias rails_server_process="lsof -wni tcp:3000"
 
 alias stylecheck="rubocop -c ~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+
+alias rito="cd ~/Code/Personal/riot_urf_trending"
 
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
