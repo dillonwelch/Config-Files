@@ -48,6 +48,8 @@ nnoremap <F4> :noh<return><esc>
 """"""
 " Display
 """"""
+" Enables syntax highlighting
+syntax enable
 " Shows line numbers
 set number
 "Highlight cursor line and column
@@ -67,7 +69,7 @@ set ignorecase smartcase
 "Show commands as I type them.
 set showcmd
 "Highlight to-do notes
-highlight Todo ctermfg=darkgrey ctermbg=yellow
+" highlight Todo ctermfg=darkgrey ctermbg=yellow
 "Sets spellcheck on
 set spell spelllang=en_us
 "Displays a column at 80 characters
@@ -193,47 +195,19 @@ function! StripWhitespace()
 endfunction
 
 function! ApplySyntaxSettings()
-  syntax enable
-endfunction
-
-" Things to do when the file is read
-function! OnBufRead()
-  " Change the newlines to Unix style.
-  call UnixNewlines()
-  " Enable syntax highlighting.
-  "call ApplySyntaxSettings()
-endfunction
-
-" Wrapper function for all replace functions that need to be executed on legacy code.
-function! ReplaceStuff()
-
-  call ReplaceQuoteParam(0, 'FOO')
-  call ReplaceQuoteParam(1, 'BAR')
-
-  call ReplaceWfrequestParam(0, 'FOO')
-  call ReplaceWfrequestParam(1, 'BAR')
-
-  " Removes the version tag.
-  exec '%s/TAG\n//ce'
-
 endfunction
 
 """
 " On Open/Save
 """
-" Do things when the a file is read in.
-call ApplySyntaxSettings()
-
 " Do things when the file is written out.
 au BufWritePre * call Preserve("StripWhitespace")
 
 " Read axlsx view files as ruby files.
 au BufReadPost *.axlsx set syntax=ruby
 
-" Turn off spell check for gitconfig.
-autocmd FileType gitconfig setlocal nospell
-
 " Automatically sources .vimrc after saving it.
 autocmd! bufwritepost .vimrc source %
+
 " Automatically source .vimrc and runs BundleUpdate when saving vundle.vim.
 autocmd! bufwritepost vundle.vim source .vimrc | BundleInstall

@@ -13,7 +13,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
 
 " Adds Bundle support.
-Plugin 'tpope/vim-bundler'
+" Plugin 'tpope/vim-bundler'
 
 " Add CoffeeScript support
 Plugin 'kchmck/vim-coffee-script'
@@ -36,13 +36,13 @@ Plugin 'Shougo/neocomplete'
 Plugin 'kien/ctrlp.vim'
 
 " :Nyancat for an awesome surprise!
-Plugin 'koron/nyancat-vim'
+" Plugin 'koron/nyancat-vim'
 
 " Adds directory navigation.
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'
 
 " Git wrapper for Vim.
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
 
 " Toggle commenting, currently aliased to <leader>gc
 Plugin 'tomtom/tcomment_vim'
