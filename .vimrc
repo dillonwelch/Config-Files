@@ -5,7 +5,6 @@
 set nocompatible
 " Separate file for Vundle packages
 source $HOME/.vim/vundle.vim
-source $HOME/.vim/neocomplete_settings.vim
 
 " Enable filetype detection and filetype specific settings.
 filetype on
@@ -20,8 +19,6 @@ let g:ctrlp_show_hidden = 1
 """""
 " Plugin Aliases
 """"
-command! CoffeeLinter CoffeeLint | cwindow
-
 " Rename current file (courtesy of Gary Bernhardt)
 function! RenameFile()
   let old_name = expand('%')
@@ -44,8 +41,11 @@ command! EBashRC e ~/.bashrc
 command! EVundle e ~/.vim/vundle.vim
 command! EVimRC e $MYVIMRC
 
-" Clears highlighting of search results.
-nnoremap <F4> :noh<return><esc>
+" From https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 
 """"""
 " Display
@@ -70,10 +70,6 @@ set hlsearch
 set ignorecase smartcase
 "Show commands as I type them.
 set showcmd
-"Highlight to-do notes
-" highlight Todo ctermfg=darkgrey ctermbg=yellow
-"Sets spellcheck on
-set spell spelllang=en_us
 "Displays a column at 80 characters
 set colorcolumn=80
 
@@ -105,6 +101,8 @@ cabbr <expr> %% expand('%:p:h')
 map <F2> :.w !pbcopy<CR><CR>
 "Allows pasting from clipboard for Macs.
 map <F3> :r !pbpaste<CR>
+"Prompt to save (if unsaved changes) when quitting.
+set confirm
 
 """
 " Indentation
