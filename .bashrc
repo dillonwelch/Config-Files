@@ -133,9 +133,17 @@ alias rails_clear_cache="rails runner \"Rails.cache.clear\""
 
 alias rails_server_process="lsof -wni tcp:3000"
 
+alias sr="bundle exec spring rspec"
+alias rs="bundle exec rspec"
+
 alias stylecheck="rubocop -c ~/Code/Work/currica/hound/config/style_guides/ruby.yml"
 
 alias rito="cd ~/Code/Personal/riot_urf_trending"
+
+alias ruby_ctags='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
+
+alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
@@ -155,6 +163,26 @@ function setup_dev_database()
   rake db:migrate
   rake db:migrate RAILS_ENV=test
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
+  rm 1
+)
+
+# Re-creates the database for prod with the production data dump.
+function setup_production_db()
+(
+  echo 'Dropping the database...'
+  db=`rake db:drop 2&>1`
+  run=`sed -n '/ERROR/p' <<< "$db"`
+  if [ -n "$run" ]
+  then
+    echo 'hmm....'
+    exit 1
+  else
+    echo 'Next steps...'
+  fi
+  rake db:create RAILS_ENV=production
+  pg_restore --verbose --clean --no-acl --no-owner -d currica_production ~/Code/Work/currica/currica-db.dump
+  rake db:migrate RAILS_ENV=production
+  RAILS_ENV=production rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
   rm 1
 )
 
@@ -192,6 +220,5 @@ source ~/git-completion.bash
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

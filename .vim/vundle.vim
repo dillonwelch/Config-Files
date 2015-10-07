@@ -3,7 +3,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Let Vundle manage Vundle (required)!
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 """" Ruby/Rails plugins
 " Adds Rails navigation, generator, and other commands.
@@ -33,7 +33,7 @@ Plugin 'Shougo/neocomplete'
 
 " Autocomplete filenames with fuzzy file search
 " Plugin 'wincent/Command-T'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " :Nyancat for an awesome surprise!
 " Plugin 'koron/nyancat-vim'

@@ -14,7 +14,11 @@ filetype plugin on
 " Set Rubocop file
 let g:vimrubocop_config = '~/Code/Work/currica/hound/config/style_guides/ruby.yml'
 
+" Show hidden files in Ctrl-P
 let g:ctrlp_show_hidden = 1
+
+" Watch for gems.tags files in addition to tags.
+set tags+=gems.tags
 
 """""
 " Plugin Aliases
@@ -30,6 +34,7 @@ function! RenameFile()
   endif
 endfunction
 map <Leader>n :call RenameFile()<cr>
+map <Leader>m :CtrlPTag<cr>
 
 set wildignore+=*.o,tmp
 
