@@ -137,6 +137,7 @@ alias sr="bundle exec spring rspec"
 alias rs="bundle exec rspec"
 
 alias stylecheck="rubocop -c ~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+alias hamlcheck="haml-lint -c ~/Code/Work/currica/hound/config/style_guides/haml.yml"
 
 alias rito="cd ~/Code/Personal/riot_urf_trending"
 
@@ -217,8 +218,5 @@ if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
 
 # Adds Git Auto-Complete.
 source ~/git-completion.bash
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
