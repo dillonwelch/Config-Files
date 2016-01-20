@@ -17,6 +17,9 @@ let g:vimrubocop_config = '~/Code/Work/currica/hound/config/style_guides/ruby.ym
 " Show hidden files in Ctrl-P
 let g:ctrlp_show_hidden = 1
 
+" Ignore files in .gitignore
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
 " Watch for gems.tags files in addition to tags.
 set tags+=gems.tags
 
