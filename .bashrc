@@ -4,7 +4,7 @@
 DIFFPATH="/tmp/"
 
 # Default directory to load up.
-DEFAULTDIR=~/Code/Work/currica
+DEFAULTDIR=~/Code/q-centrix
 
 ##### Git Helpers #####
 
@@ -201,7 +201,3 @@ if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
 source ~/git-completion.bash
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-# NVM
-export NVM_DIR=~/.nvm
-. $(brew --prefix nvm)/nvm.sh
