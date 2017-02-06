@@ -3,5 +3,3 @@
 
 source "$HOME/.bashrc"
 source "$HOME/.profile"
-
-pg-start 2>1 1>/dev/null

@@ -93,36 +93,6 @@ function reload()
   source ${HOME}/.bashrc
 }
 
-function setup_vim()
-(
-  mkdir ~/.vim/bundle
-  install_vundle
-  install_ycm
-  install_command_t
-)
-
-function install_command_t()
-(
-  cd ~/.vim/bundle/command-t/ruby/command-t
-  ruby extconf.rb
-  make
-)
-
-function install_nokogiri()
-(
-  gem uninstall nokogiri
-  xcode-select --install
-  gem install nokogiri
-)
-
-# Installs the YCM vim plugin
-function install_ycm()
-(
-  #brew install cmake
-  cd ~/.vim/bundle/YouCompleteMe/third_party/ycmd
-  ./build.sh --clang-compiler
-)
-
 ##### Ruby/Rails Aliases #####
 
 # Pulls the Heroku db to local (requires name of local DB
@@ -146,6 +116,23 @@ alias ruby_ctags='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bun
 alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
+# http://stackoverflow.com/a/31165220/1715048
+alias mongo-start='mongod --config /usr/local/etc/mongod.conf --fork'
+
+# Production related aliases
+alias bastion='ssh dwelch@bastion.qcentrix.aws.logicworks.net'
+alias shred='srm -m'
+
+# JavaScript
+alias jsi='npm install && bower install'
+alias jsit='jsi && tomtest'
+alias jsqi='rm -rf tmp dist bower_components/q-centrix-ember-components node_modules/q-centrix-ember-components && jsi'
+alias jsri='npm cache clear && bower cache clean && rm -rf node_modules bower_components dist tmp && npm install && bower install'
+alias jsrit='jsri && tomtest'
+alias jsqit='jsqi && tomtest'
+alias tomster='ember serve --proxy http://localhost:3000'
+alias tomtest='ember test'
+
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
 (
@@ -160,11 +147,25 @@ function setup_dev_database()
     echo 'Next steps...'
   fi
   rake db:create
-  pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
-  rake db:migrate
+  # pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
+  psql -d currica_development < ~/Desktop/prodreplicadump_20170105_040002.sql
+  rm 1
   rake db:migrate RAILS_ENV=test
+  rake db:migrate
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
   rm 1
+)
+
+function reset_rreas_password()
+(
+  rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
+)
+
+function setup_test_database()
+(
+  rake db:drop RAILS_ENV=test
+  rake db:create RAILS_ENV=test
+  rake db:migrate RAILS_ENV=test
 )
 
 # Re-creates the database for prod with the production data dump.
@@ -187,26 +188,6 @@ function setup_production_db()
   rm 1
 )
 
-# Re-creates the database for dev without using the production data dump
-function setup_db_structure()
-(
-  echo 'Dropping the database...'
-  db=`rake db:drop 2&>1`
-  run=`sed -n '/ERROR/p' <<< "$db"`
-  if [ -n "$run" ]
-  then
-    echo 'hmm....'
-    exit 1
-  else
-    echo 'Next steps...'
-  fi
-  rake db:create
-  rake db:migrate
-  rake db:migrate RAILS_ENV=test
-  rake db:seed
-  rm 1
-)
-
 ##### Startup Commands #####
 
 # Changes directory on startup (DOES NOT change home directory).
@@ -220,3 +201,7 @@ if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
 source ~/git-completion.bash
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# NVM
+export NVM_DIR=~/.nvm
+. $(brew --prefix nvm)/nvm.sh

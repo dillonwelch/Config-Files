@@ -20,9 +20,6 @@ let g:ctrlp_show_hidden = 1
 " Ignore files in .gitignore
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-" Watch for gems.tags files in addition to tags.
-set tags+=gems.tags
-
 """""
 " Plugin Aliases
 """"
@@ -38,6 +35,18 @@ function! RenameFile()
 endfunction
 map <Leader>n :call RenameFile()<cr>
 map <Leader>m :CtrlPTag<cr>
+
+" dbext
+" Each profile has the form:
+" g:dbext_default_profile_'profilename' = 'var=value:var=value:...'
+let g:dbext_default_profile_psql = 'type=PGSQL:host=localhost:port=5433:dbname=currica_development:user=dillonwelch'
+let g:dbext_default_profile = 'psql'
+
+" vim-rspec commands
+map <Leader>t :call RunCurrentSpecFile()<cr>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 set wildignore+=*.o,tmp
 
@@ -95,7 +104,7 @@ set nostartofline
 "Enhanced tab completion
 set wildmenu
 "Set working dir to main dir. Use %:p:h to get file dir.
-cd ~
+" cd ~
 "Global search/replace by default
 set gdefault
 "Enter newlines without entering insert mode. Moves cursor to new line.
@@ -218,4 +227,4 @@ au BufReadPost *.axlsx set syntax=ruby
 autocmd! bufwritepost .vimrc source %
 
 " Automatically source .vimrc and runs BundleUpdate when saving vundle.vim.
-autocmd! bufwritepost vundle.vim source .vimrc | BundleInstall
+autocmd! bufwritepost vundle.vim source ~/.vimrc | BundleInstall

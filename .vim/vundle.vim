@@ -21,25 +21,22 @@ Plugin 'kchmck/vim-coffee-script'
 " Runs Rubocop in Vim
 Plugin 'ngmy/vim-rubocop'
 
+" Run rspec from vim
+Plugin 'thoughtbot/vim-rspec'
+
 """" End Ruby plugins
 
 " Autocompletes endings for control structures in Ruby, C, and other languages.
 Plugin 'tpope/vim-endwise'
 
 " Code Completion engine for many languages
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'Shougo/neocomplete'
-" Plugin 'osyo-manga/vim-monster'
 
 " Autocomplete filenames with fuzzy file search
-" Plugin 'wincent/Command-T'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 " :Nyancat for an awesome surprise!
-" Plugin 'koron/nyancat-vim'
-
-" Adds directory navigation.
-" Plugin 'scrooloose/nerdtree'
+Plugin 'koron/nyancat-vim'
 
 " Git wrapper for Vim.
 " Plugin 'tpope/vim-fugitive'
@@ -55,5 +52,8 @@ Plugin 'tpope/vim-surround'
 
 " Extra keymappings using brackets
 Plugin 'tpope/vim-unimpaired'
+
+" Databases in Vim
+Plugin 'vim-scripts/dbext.vim'
 
 call vundle#end()

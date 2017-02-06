@@ -53,6 +53,9 @@
   # Prints a list of deleted files in the repo
   dfiles = !git log --diff-filter=D --summary | grep delete
 
+  # Pushes current branch to heroku.
+  heroku = !git push heroku $(git currentbranch):master
+
   # Prints the last commit
   lc = log -1
 
