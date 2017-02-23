@@ -12,7 +12,7 @@ filetype indent on
 filetype plugin on
 
 " Set Rubocop file
-let g:vimrubocop_config = '~/Code/Work/q-centrix/hound/config/style_guides/ruby.yml'
+let g:vimrubocop_config = '~/Code/q-centrix/hound/config/style_guides/ruby.yml'
 
 " Show hidden files in Ctrl-P
 let g:ctrlp_show_hidden = 1

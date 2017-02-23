@@ -37,7 +37,7 @@ DEFAULTDIR=~/Code/q-centrix
 # Switches to the Dropbox code directory on Mac.
 alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
-alias qcode="cd ~/Code/Work/currica/"
+alias qcode="cd ~/Code/q-centrix/"
 
 alias install_vundle="git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
 
@@ -82,8 +82,11 @@ function list_commands()
 # Sets up ssh-agent so we don't have to authenticate every time.
 function set_up_ssh_agent()
 {
-  eval "$(ssh-agent)" > /dev/null # We don't care about the output.
-  ssh-add
+  # eval "$(ssh-agent)" > /dev/null # We don't care about the output.
+  ssh-add -l | grep "The agent has no identities" > /dev/null
+  if [ $? -eq 0 ]; then
+    ssh-add
+  fi
 }
 
 # Reloads bashrc
@@ -199,5 +202,7 @@ if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
 
 # Adds Git Auto-Complete.
 source ~/git-completion.bash
+
+set_up_ssh_agent
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
