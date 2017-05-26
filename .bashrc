@@ -39,6 +39,8 @@ alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
 alias qcode="cd ~/Code/q-centrix/"
 
+alias qrc="cd ~/Code/q-centrix/web; rails c"
+
 alias install_vundle="git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
 
 alias update_vim_plugins="vim +PluginInstall +qall"
@@ -124,7 +126,7 @@ alias mongo-start='mongod --config /usr/local/etc/mongod.conf --fork'
 
 # Production related aliases
 alias bastion='ssh dwelch@bastion.qcentrix.aws.logicworks.net'
-alias shred='srm -m'
+alias shred='gshred -u'
 
 # JavaScript
 alias jsi='npm install && bower install'
@@ -150,13 +152,29 @@ function setup_dev_database()
     echo 'Next steps...'
   fi
   rake db:create
-  # pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Code/Work/currica/currica-db.dump
-  psql -d currica_development < ~/Desktop/prodreplicadump_20170105_040002.sql
+  # with dump backup
+  pg_restore --verbose --clean --no-acl --no-owner -d currica_development ~/Desktop/currica-db-small.dump
+  # with S3 backup
+  # psql -d currica_development < ~/Desktop/prodreplicadump_20170105_040002.sql
   rm 1
-  rake db:migrate RAILS_ENV=test
   rake db:migrate
+  rake db:migrate RAILS_ENV=test
   rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
   rm 1
+)
+
+function setup_dev_database_registries()
+(
+  rake db:drop
+  rake db:create
+  rake db:migrate
+  rake db:migrate RAILS_ENV=test
+  rake db:seed
+  rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
+  rake ncdr:cath_pci:seed_questions
+  rake ncdr:cath_pci:create_for_facility
+  rake registries:update_edge_targets
+  rake registries:seed_populators['cath_pci']
 )
 
 function reset_rreas_password()
@@ -190,6 +208,19 @@ function setup_production_db()
   RAILS_ENV=production rails runner '@user = User.find_by_email("rreas@q-centrix.com"); @user.password = "password1!"; @user.password_confirmation = "password1!"; @user.save!;'
   rm 1
 )
+
+# 1 - snomed code
+# 2 - visit ID
+function find_code
+{
+  curr_dir=`pwd`
+  dir="/Users/dillonwelch/OneDrive - Q-Centrix, LLC/wired/test bed data set/results/wired_round_2/qc2"
+  cd "${dir}"
+  find . -type f -print | grep ${2} | xargs grep ${1}
+  cd "${curr_dir}"
+  # find "/Users/dillonwelch/OneDrive - Q-Centrix, LLC/wired/test bed data set/results/wired_round_2/qc2" -type f -print | grep ${2} | xargs grep ${1}
+}
+
 
 ##### Startup Commands #####
 
