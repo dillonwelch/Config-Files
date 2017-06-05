@@ -221,6 +221,27 @@ function find_code
   # find "/Users/dillonwelch/OneDrive - Q-Centrix, LLC/wired/test bed data set/results/wired_round_2/qc2" -type f -print | grep ${2} | xargs grep ${1}
 }
 
+function find_dys
+{
+  conds=('Dyslipidemia' 'Hyperlipidemia'
+         'Lipid lowering agent' 'Statin'
+         'Hyperchol' 'Calcium channel blocker'
+         'Antilipemic agent' 'Oral hypoglycemic'
+         'Cholesterol' 'LDL' 'HDL')
+
+  codes=(370992007 55822004 373267003 96302009
+         13644009 48698004 57952007 346597008
+         '2093-3' '2089-1' '2085-9')
+  len=${#conds[@]}
+
+  for (( i=0; i<${len}; i++));
+  do
+    echo ${conds[$i]}
+    find_code ${codes[$i]} ${1}
+    echo ''
+  done
+}
+
 
 ##### Startup Commands #####
 
@@ -229,7 +250,7 @@ cd $DEFAULTDIR
 
 # If this is the first time loading the shell, go to default directory.
 # Otherwise, go to the directory we were working in before reload
-if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd $LAST_DIR; fi
+if [[ -z "$LAST_DIR" ]]; then cd $DEFAULTDIR; else cd "${LAST_DIR}"; fi
 
 # Adds Git Auto-Complete.
 source ~/git-completion.bash
