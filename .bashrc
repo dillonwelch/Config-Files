@@ -58,6 +58,8 @@ alias remove_rej='find . -name "*.rej" -exec rm -f {} \;'
 # NEed to add single quotes back around rails_helper.
 alias dothething='for f in $(find spec/**/*.rb ); do perl -00pi -e "s/require rails_helper\n\n//gm" $f; done'
 
+alias new_pw='rails runner "puts SecureRandom.base64(32)"'
+alias new_uuid='rails runner "p SecureRandom.uuid"'
 
 ##### Functions #####
 
@@ -111,8 +113,8 @@ alias rails_server_process="lsof -wni tcp:3000"
 alias sr="bundle exec spring rspec"
 alias rs="bundle exec rspec"
 
-alias stylecheck="rubocop -c ~/Code/Work/currica/hound/config/style_guides/ruby.yml"
-alias hamlcheck="haml-lint -c ~/Code/Work/currica/hound/config/style_guides/haml.yml"
+alias stylecheck="rubocop -c ~/Code/q-centrix/hound/config/style_guides/ruby.yml"
+alias hamlcheck="haml-lint -c ~/Code/q-centrix/hound/config/style_guides/haml.yml"
 
 alias rito="cd ~/Code/Personal/riot_urf_trending"
 
@@ -240,6 +242,28 @@ function find_dys
     find_code ${codes[$i]} ${1}
     echo ''
   done
+}
+
+function find_cvd
+{
+  conds=('CVD' 'TIA' 'Stroke')
+  codes=(6291400 266257000 230690007)
+  len=${#conds[@]}
+
+  for (( i=0; i<${len}; i++));
+  do
+    echo ${conds[$i]}
+    find_code ${codes[$i]} ${1}
+    echo ''
+  done
+}
+
+function find_replace
+{
+  # find ./ -type f -exec sed -i -e 's/${1}/${2}/g' {} \;
+  # find ./ -type f -exec sed -i -e 's/FactoryGirl/FactoryBot/g' {} \;
+  find ./ -type f -exec sed -i -e 's/ActiveRecord::Migration/ActiveRecord::Migration[4.2]/g' {} \;
+  find . -name "*-e" -type f -delete
 }
 
 
