@@ -71,6 +71,9 @@
   # Undo the last commit, leaving the changes staged.
   lcreset = reset --soft HEAD^
 
+  # Merges in latest master
+  mm = !git fetch && git merge origin/master
+
   # Removes all untracked files and uncommitted changes
   # Unstages all changes
   # Deletes untracked files and directories

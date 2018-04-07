@@ -37,6 +37,9 @@ DEFAULTDIR=~/Code/q-centrix
 # Switches to the Dropbox code directory on Mac.
 alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
+# Runs rails in production mode for perf testing
+alias local_prod="LOCAL_PROD_TESTING=true RAILS_ENV=production rails s -p 3000"
+
 alias qcode="cd ~/Code/q-centrix/"
 
 alias qrc="cd ~/Code/q-centrix/web; rails c"
