@@ -1,6 +1,7 @@
 [user]
 	name = Dillon Welch
 	email = daw0328@gmail.com
+	signingkey = 4CAB42A969203697
 [pull]
 	rebase = true
 [color "status"]
@@ -99,3 +100,7 @@
   search = !sh -c 'git grep "${0}" $(git ls-remote . 'refs/remotes/*' | cut -f 2)'
 [credential]
 	helper = osxkeychain
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg

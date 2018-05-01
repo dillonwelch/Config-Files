@@ -40,6 +40,11 @@ alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 # Runs rails in production mode for perf testing
 alias local_prod="LOCAL_PROD_TESTING=true RAILS_ENV=production rails s -p 3000"
 
+alias cache_on="qcode; cd web/tmp; touch caching-dev.txt"
+alias cache_off="qcode; cd web/tmp; rm caching-dev.txt"
+
+alias creds="EDITOR=vim rails credentials:edit"
+
 alias qcode="cd ~/Code/q-centrix/"
 
 alias qrc="cd ~/Code/q-centrix/web; rails c"

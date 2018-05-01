@@ -3,3 +3,4 @@
 
 source "$HOME/.bashrc"
 source "$HOME/.profile"
+export GPG_TTY=$(tty)
