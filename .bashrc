@@ -38,6 +38,7 @@ DEFAULTDIR=~/Code/q-centrix
 alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
 
 # Runs rails in production mode for perf testing
+alias local_console="LOCAL_PROD_TESTING=true RAILS_ENV=production rails c"
 alias local_prod="LOCAL_PROD_TESTING=true RAILS_ENV=production rails s -p 3000"
 
 alias cache_on="qcode; cd web/tmp; touch caching-dev.txt"
@@ -52,6 +53,10 @@ alias qrc="cd ~/Code/q-centrix/web; rails c"
 alias install_vundle="git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
 
 alias update_vim_plugins="vim +PluginInstall +qall"
+
+alias vg="vim Gemfile"
+
+alias gmerge="git checkout origin/master Gemfile.lock; bundle; git status"
 
 # Creates a symbolic link to a file
 # symlink /path/to/original/file /path/to/symlink
@@ -135,7 +140,7 @@ alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 alias mongo-start='mongod --config /usr/local/etc/mongod.conf --fork'
 
 # Production related aliases
-alias bastion='ssh dwelch@bastion.qcentrix.aws.logicworks.net'
+alias bastion='ssh dwelch@bastion.qcentrix.local'
 alias shred='gshred -u'
 
 # JavaScript
