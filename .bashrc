@@ -34,9 +34,6 @@ DEFAULTDIR=~/Code/q-centrix
 
 
 ##### Aliases #####
-# Switches to the Dropbox code directory on Mac.
-alias macdbc="cd ~/Dropbox/Documents/Documents/Code"
-
 # Runs rails in production mode for perf testing
 alias local_console="LOCAL_PROD_TESTING=true RAILS_ENV=production rails c"
 alias local_prod="LOCAL_PROD_TESTING=true RAILS_ENV=production rails s -p 3000"
@@ -56,23 +53,24 @@ alias update_vim_plugins="vim +PluginInstall +qall"
 
 alias vg="vim Gemfile"
 
+alias g='git'
 alias gmerge="git checkout origin/master Gemfile.lock; bundle; git status"
 
 # Creates a symbolic link to a file
 # symlink /path/to/original/file /path/to/symlink
 alias symlink="ln -s"
 
-alias v="/Applications/MacVim.app/Contents/MacOS/Vim"
-
-# Removes all .rej files.
-alias remove_rej='find . -name "*.rej" -exec rm -f {} \;'
-
 # Finds and replaces with multiple newline removal.
 # NEed to add single quotes back around rails_helper.
 alias dothething='for f in $(find spec/**/*.rb ); do perl -00pi -e "s/require rails_helper\n\n//gm" $f; done'
 
-alias new_pw='rails runner "puts SecureRandom.base64(32)"'
+alias new_pw='cd ~/Code/q-centrix/web; rails runner "puts SecureRandom.base64(32)"'
 alias new_uuid='rails runner "p SecureRandom.uuid"'
+
+alias be='bundle exec'
+alias dbm='bundle exec rake db:migrate'
+alias dbr='bundle exec rake db:rollback'
+alias rgm='rails g active_record:migration'
 
 ##### Functions #####
 
@@ -123,15 +121,12 @@ alias rails_clear_cache="rails runner \"Rails.cache.clear\""
 
 alias rails_server_process="lsof -wni tcp:3000"
 
-alias sr="bundle exec spring rspec"
-alias rs="bundle exec rspec"
+alias rs="be rspec"
 
 alias stylecheck="rubocop -c ~/Code/q-centrix/hound/config/style_guides/ruby.yml"
 alias hamlcheck="haml-lint -c ~/Code/q-centrix/hound/config/style_guides/haml.yml"
 
 alias rito="cd ~/Code/Personal/riot_urf_trending"
-
-alias ruby_ctags='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
 
 alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
