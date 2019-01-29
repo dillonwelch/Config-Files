@@ -1,18 +1,21 @@
+rm $HOME/git-completion.bash
 rm $HOME/.bashrc
 rm $HOME/.gemrc
 rm $HOME/.gitconfig
 rm $HOME/.gitignore
 rm $HOME/.vimrc
+rm $HOME/.vim/rename_current_file.vim
 rm $HOME/.vim/vundle.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/vundle.vim
 DIR=`pwd`
+ln -s $DIR/git-completion.bash $HOME/
 ln -s $DIR/.bashrc $HOME/.bashrc
 ln -s $DIR/.gemrc $HOME/.gemrc
 ln -s $DIR/.gitconfig $HOME/.gitconfig
 ln -s $DIR/.gitignore $HOME/.gitignore
 ln -s $DIR/.vimrc $HOME/.vimrc
-ln -s $DIR/.vim/vundle.vim $HOME/.vim/
 ln -s $DIR/.vim/rename_current_file.vim $HOME/.vim/
+ln -s $DIR/.vim/vundle.vim $HOME/.vim/
 
 # Homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
