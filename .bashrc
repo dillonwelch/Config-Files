@@ -4,7 +4,7 @@
 DIFFPATH="/tmp/"
 
 # Default directory to load up.
-DEFAULTDIR=~/Code/q-centrix
+DEFAULTDIR=~/Code/
 
 ##### Git Helpers #####
 
@@ -43,9 +43,9 @@ alias cache_off="qcode; cd web/tmp; rm caching-dev.txt"
 
 alias creds="EDITOR=vim rails credentials:edit"
 
-alias qcode="cd ~/Code/q-centrix/"
+#alias qcode="cd ~/Code/q-centrix/"
 
-alias qrc="cd ~/Code/q-centrix/web; rails c"
+#alias qrc="cd ~/Code/q-centrix/web; rails c"
 
 alias install_vundle="git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
 
@@ -64,7 +64,7 @@ alias symlink="ln -s"
 # NEed to add single quotes back around rails_helper.
 alias dothething='for f in $(find spec/**/*.rb ); do perl -00pi -e "s/require rails_helper\n\n//gm" $f; done'
 
-alias new_pw='cd ~/Code/q-centrix/web; rails runner "puts SecureRandom.base64(32)"'
+#alias new_pw='cd ~/Code/q-centrix/web; rails runner "puts SecureRandom.base64(32)"'
 alias new_uuid='rails runner "p SecureRandom.uuid"'
 
 alias be='bundle exec'
@@ -123,8 +123,8 @@ alias rails_server_process="lsof -wni tcp:3000"
 
 alias rs="be rspec"
 
-alias stylecheck="rubocop -c ~/Code/q-centrix/hound/config/style_guides/ruby.yml"
-alias hamlcheck="haml-lint -c ~/Code/q-centrix/hound/config/style_guides/haml.yml"
+#alias stylecheck="rubocop -c ~/Code/q-centrix/hound/config/style_guides/ruby.yml"
+#alias hamlcheck="haml-lint -c ~/Code/q-centrix/hound/config/style_guides/haml.yml"
 
 alias rito="cd ~/Code/Personal/riot_urf_trending"
 
@@ -141,7 +141,7 @@ alias shred='gshred -u'
 # JavaScript
 alias jsi='npm install && bower install'
 alias jsit='jsi && tomtest'
-alias jsqi='rm -rf tmp dist bower_components/q-centrix-ember-components node_modules/q-centrix-ember-components && jsi'
+#alias jsqi='rm -rf tmp dist bower_components/q-centrix-ember-components node_modules/q-centrix-ember-components && jsi'
 alias jsri='npm cache clear && bower cache clean && rm -rf node_modules bower_components dist tmp && npm install && bower install'
 alias jsrit='jsri && tomtest'
 alias jsqit='jsqi && tomtest'

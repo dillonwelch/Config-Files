@@ -1,7 +1,7 @@
 [user]
 	name = Dillon Welch
 	email = daw0328@gmail.com
-	signingkey = 4CAB42A969203697
+	signingkey = A79E0208F7127541 # Personal Laptop
 [pull]
 	rebase = true
 [color "status"]
