@@ -21,6 +21,8 @@ ln -s $DIR/.vim/vundle.vim $HOME/.vim/
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install pinentry-mac gpg npm postgresql redis vim
 brew install imagemagick@6 && brew link imagemagick@6 --force # rmagick
+brew services start postgresql
+brew services start redis
 
 # Heroku
 brew install heroku/brew/heroku
