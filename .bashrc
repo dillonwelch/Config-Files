@@ -38,6 +38,9 @@ DEFAULTDIR=~/Code/
 alias local_console="LOCAL_PROD_TESTING=true RAILS_ENV=production rails c"
 alias local_prod="LOCAL_PROD_TESTING=true RAILS_ENV=production rails s -p 3000"
 
+alias rails_c_staging="heroku run rails c --app tempest-api"
+alias rails_c_prod="heroku run rails c --app tempest-api-production"
+
 alias cache_on="qcode; cd web/tmp; touch caching-dev.txt"
 alias cache_off="qcode; cd web/tmp; rm caching-dev.txt"
 

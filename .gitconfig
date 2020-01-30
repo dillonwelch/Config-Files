@@ -1,9 +1,9 @@
 [user]
 	name = Dillon Welch
 	email = daw0328@gmail.com
-    # signingkey = E270AEC4B63A651D # Work Laptop
+    signingkey = E270AEC4B63A651D # Work Laptop
     # signingkey = BF110ED629AF63597C1B36F9A79E0208F7127541 # Home laptop
-    signingkey =  C0CE37E9118BD37198D3F6DE9B66134879EDBA37 # Home iMac
+    # signingkey =  C0CE37E9118BD37198D3F6DE9B66134879EDBA37 # Home iMac
 [pull]
 	rebase = true
 [color "status"]
