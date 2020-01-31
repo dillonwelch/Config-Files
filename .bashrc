@@ -6,49 +6,9 @@ DIFFPATH="/tmp/"
 # Default directory to load up.
 DEFAULTDIR=~/Code/
 
-##### Git Helpers #####
-
-### Aliases ###
-
-### Functions ###
-
-# # Applies a diff patch
-# function git_apply_patch()
-# {
-#   git apply --ignore-space-change --ignore-whitespace --reject --whitespace=fix "$DIFFPATH${1}.patch"
-# }
-
-# Creates a diff patch (use for uncommitted changes)
-# function git_diff_patch()
-# {
-#   git diff origin/master --full-index -M > "$DIFFPATH${1}.patch"
-# }
-
-# Sends all COMMITTED changes from origin/master to the file name specified in the argument
-# For example, git_patch testing would create a file called testing.patch in /d/diffs
-# If necessary, make a temporary commit and then reset by doing git reset HEAD^
-# function git_patch()
-# {
-#   git format-patch origin/master --stdout --full-index > "$DIFFPATH${1}.patch"
-# }
-
-
 ##### Aliases #####
-# Runs rails in production mode for perf testing
-alias local_console="LOCAL_PROD_TESTING=true RAILS_ENV=production rails c"
-alias local_prod="LOCAL_PROD_TESTING=true RAILS_ENV=production rails s -p 3000"
-
 alias rails_c_staging="heroku run rails c --app tempest-api"
 alias rails_c_prod="heroku run rails c --app tempest-api-production"
-
-alias cache_on="qcode; cd web/tmp; touch caching-dev.txt"
-alias cache_off="qcode; cd web/tmp; rm caching-dev.txt"
-
-alias creds="EDITOR=vim rails credentials:edit"
-
-#alias qcode="cd ~/Code/q-centrix/"
-
-#alias qrc="cd ~/Code/q-centrix/web; rails c"
 
 alias install_vundle="git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
 
@@ -62,10 +22,6 @@ alias gmerge="git checkout origin/master Gemfile.lock; bundle; git status"
 # Creates a symbolic link to a file
 # symlink /path/to/original/file /path/to/symlink
 alias symlink="ln -s"
-
-# Finds and replaces with multiple newline removal.
-# NEed to add single quotes back around rails_helper.
-alias dothething='for f in $(find spec/**/*.rb ); do perl -00pi -e "s/require rails_helper\n\n//gm" $f; done'
 
 #alias new_pw='cd ~/Code/q-centrix/web; rails runner "puts SecureRandom.base64(32)"'
 alias new_uuid='rails runner "p SecureRandom.uuid"'
@@ -126,30 +82,12 @@ alias rails_server_process="lsof -wni tcp:3000"
 
 alias rs="be rspec"
 
-#alias stylecheck="rubocop -c ~/Code/q-centrix/hound/config/style_guides/ruby.yml"
-#alias hamlcheck="haml-lint -c ~/Code/q-centrix/hound/config/style_guides/haml.yml"
-
-alias rito="cd ~/Code/Personal/riot_urf_trending"
-
 alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
-# http://stackoverflow.com/a/31165220/1715048
-alias mongo-start='mongod --config /usr/local/etc/mongod.conf --fork'
-
-# Production related aliases
-alias bastion='ssh dwelch@bastion.qcentrix.local'
-alias shred='gshred -u'
-
 # JavaScript
-alias jsi='npm install && bower install'
-alias jsit='jsi && tomtest'
-#alias jsqi='rm -rf tmp dist bower_components/q-centrix-ember-components node_modules/q-centrix-ember-components && jsi'
-alias jsri='npm cache clear && bower cache clean && rm -rf node_modules bower_components dist tmp && npm install && bower install'
-alias jsrit='jsri && tomtest'
-alias jsqit='jsqi && tomtest'
-alias tomster='ember serve --proxy http://localhost:3000'
-alias tomtest='ember test'
+alias jsi='npm install'
+alias react_regen_snaps='npm run test:spec -- -u'
 
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
