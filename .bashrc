@@ -31,6 +31,9 @@ alias dbm='bundle exec rake db:migrate'
 alias dbr='bundle exec rake db:rollback'
 alias rgm='rails g active_record:migration'
 
+# Javascript / React
+alias regen_snapshots='npm run test:spec -- -u'
+
 ##### Functions #####
 
 # List out all custom aliases and functions.
