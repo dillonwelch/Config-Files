@@ -32,7 +32,13 @@ alias dbr='bundle exec rake db:rollback'
 alias rgm='rails g active_record:migration'
 
 # Javascript / React
-alias regen_snapshots='npm run test:spec -- -u'
+alias npi='npm install'
+alias react_regen_snaps='npm run test:spec -- -u'
+alias react_format='npm run test:format'
+alias react_format_and_test='react_format && react_test'
+alias react_regen_snapshots='npm run test:spec -- -u'
+alias react_single_test='npx jest --'
+alias react_test='npm run test'
 
 ##### Functions #####
 
@@ -87,10 +93,6 @@ alias rs="be rspec"
 
 alias pg-start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg-stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
-
-# JavaScript
-alias jsi='npm install'
-alias react_regen_snaps='npm run test:spec -- -u'
 
 # Re-creates the database for dev with the production data dump.
 function setup_dev_database()
