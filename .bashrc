@@ -32,12 +32,13 @@ alias dbr='bundle exec rake db:rollback'
 alias rgm='rails g active_record:migration'
 
 # Javascript / React
-alias npi='npm install'
 alias react_regen_snaps='npm run test:spec -- -u'
 alias react_format='npm run test:format'
 alias react_format_and_test='react_format && react_test'
 alias react_regen_snapshots='npm run test:spec -- -u'
 alias react_single_test='npx jest --'
+alias react_update="npm install"
+alias react_update_storybook="npm update @storybook/addon-actions; npm update @storybook/addon-info; npm update @storybook/addon-knobs; npm update @storybook/addon-links; npm update @storybook/addon-viewport; npm update @storybook/addons; npm update @storybook/react"
 alias react_test='npm run test'
 
 ##### Functions #####
