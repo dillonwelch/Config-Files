@@ -1,5 +1,8 @@
 ##### Variables #####
 
+# Disable the annoying message on Mac for zsh
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Folder where your diffs are located.
 DIFFPATH="/tmp/"
 

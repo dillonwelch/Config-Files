@@ -19,16 +19,19 @@ ln -s $DIR/.vim/vundle.vim $HOME/.vim/
 
 # Homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install pinentry-mac gpg npm postgresql redis vim
-brew install imagemagick@6 && brew link imagemagick@6 --force # rmagick
-brew services start postgresql
-brew services start redis
+brew install pinentry-mac gpg npm redis vim
+# brew install pinentry-mac gpg npm postgresql redis vim
+# brew install imagemagick@6 && brew link imagemagick@6 --force # rmagick
+# brew services start postgresql
+# brew services start redis
 
 # Heroku
-brew install heroku/brew/heroku
-heroku login
-heroku keys:add
+# brew install heroku/brew/heroku
+# heroku login
+# heroku keys:add
 
 # RVM
 gpg --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 \curl -sSL https://get.rvm.io | bash -s stable
