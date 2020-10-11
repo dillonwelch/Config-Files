@@ -86,6 +86,9 @@
   # Pushes a branch to origin and sets the upstream.
   po = !sh -c 'git push -u origin $(git currentbranch)'
 
+  # Pushes a branch to upstream and sets the upstream.
+  pu = !sh -c 'git push -u upstream $(git currentbranch)'
+
   # Renames the current branch
   rb = !sh -c 'git branch -m "${0}"'
 
