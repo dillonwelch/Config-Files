@@ -102,7 +102,7 @@
   search = !sh -c 'git grep "${0}" $(git ls-remote . 'refs/remotes/*' | cut -f 2)'
 [credential]
 	helper = osxkeychain
-[commit]
-	gpgsign = true
-[gpg]
-	program = gpg
+#[commit]
+#	gpgsign = true
+#[gpg]
+#	program = gpg
